@@ -1,0 +1,82 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Frontend</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background-color: #f4f4f4;
+    }
+    .container {
+      max-width: 600px;
+      width: 100%;
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+      text-align: center;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+    button {
+      background-color: #4caf50;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Your Frontend</h1>
+
+  <label for="syllabus">Syllabus:</label>
+  <input type="text" id="syllabus" placeholder="Enter syllabus data">
+
+  <button onclick="fetchData('test')">Fetch Test Data</button>
+  <button onclick="fetchData('notes')">Fetch Notes Data</button>
+
+  <div id="result"></div>
+</div>
+
+<script>
+  async function fetchData(type) {
+    const syllabus = document.getElementById('syllabus').value;
+    
+    try {
+      const response = await fetch(`http://localhost:3000/${type}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ syllabus }),
+      });
+      
+      const jsonresponse = await response.json();
+      const data = jsonresponse.data;
+      console.log(data);
+      document.getElementById('result').innerHTML = `<p>${data}</p>`;
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      document.getElementById('result').innerHTML = `<p>Error: ${error.message}</p>`;
+    }
+  }
+</script>
+
+</body>
+</html>
