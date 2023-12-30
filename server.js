@@ -1,14 +1,20 @@
 // index.js
 import express from 'express'
-import fetchData from '.';
+import fetchData from './index.js';
 
 const app = express();
 const port = 3000;
 
 // Define a route
-app.get('/', (req, res) => {
-  res.send('Hello, Express!');
-});
+app.get('/test', async (req, res) => {
+    try {
+      const data = await fetchData("Introduction, Web and HTTP, Web Caching, DNS, Email: SMTP, MIME,POP3, Webmail, FTP, TELNET");
+      res.send(data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      res.status(500).send("Internal Server Error");
+    }
+  });
 
 // Start the server
 app.listen(port, () => {

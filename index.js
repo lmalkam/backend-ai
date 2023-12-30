@@ -21,4 +21,4 @@ async function fetchData(prompt) {
 
 export default fetchData;
 
-fetchData()
+
