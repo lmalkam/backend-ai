@@ -16,7 +16,8 @@ async function fetchData(prompt) {
     model: "gpt-3.5-turbo",
   });
 
-  console.log(completion.choices[0].message.content);
+  const res = completion.choices[0].message.content;
+  return res;
 }
 
 export default fetchData;
