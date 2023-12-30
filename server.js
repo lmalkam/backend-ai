@@ -13,13 +13,29 @@ app.post('/test', async (req, res) => {
 
   const query = req.body.syllabus;
     try {
-      const data = await fetchData(query);
+
+      const data = await fetchData(query, "test");
       res.json({data});
     } catch (error) {
       console.error("Error fetching data:", error);
       res.status(500).json("Internal Server Error");
     }
   });
+
+  app.post('/notes', async (req, res) => {
+
+    const query = req.body.syllabus;
+      try {
+  
+        const data = await fetchData(query, "notes");
+        res.json({data});
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        res.status(500).json("Internal Server Error");
+      }
+    });
+
+
 
 
 // Start the server
