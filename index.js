@@ -11,13 +11,14 @@ async function fetchData(prompt, mode) {
     -it should contain 10 questions
     -all the questions should be of descriptive type
     -questions should have variation in marks 
-    -respond in html with body component only with tailwind styles only(do not give anything else)
+    -respond in html with body component only without any styling(do not give anything else)
+    -only output questions nothing else
     `, 
 
     notes : `For the below given syllabus make cheatsheet on every topic.
     -every topic should be covered
     -it should make topic memorable
-    -respond in html with body component only with tailwind styles only(do not give anything else)
+    -respond in html with body component only  without any styling (do not give anything else)
     `
     
   }
