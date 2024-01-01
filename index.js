@@ -11,13 +11,13 @@ async function fetchData(prompt, mode) {
     -it should contain 10 questions
     -all the questions should be of descriptive type
     -questions should have variation in marks 
-    -respond in md only
+    -respond in html only
     `, 
 
     notes : `For the below given syllabus make cheatsheet on every topic.
     -every topic should be covered
     -it should make topic memorable
-    -respond in md only
+    -respond in html only
     `
     
   }
