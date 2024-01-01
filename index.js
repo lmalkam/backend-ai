@@ -9,13 +9,15 @@ async function fetchData(prompt, mode) {
   const prompts = {
     test : `For the below given syllabus give me a school like test paper for exam .
     -it should contain 10 questions
-    - all the questions should be of descriptive type
-    - questions should have variation in marks 
+    -all the questions should be of descriptive type
+    -questions should have variation in marks 
+    -respond in md only
     `, 
 
     notes : `For the below given syllabus make cheatsheet on every topic.
     -every topic should be covered
     -it should make topic memorable
+    -respond in md only
     `
     
   }
