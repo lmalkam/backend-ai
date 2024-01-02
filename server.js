@@ -2,38 +2,76 @@
 import express from 'express'
 import fetchData from './index.js';
 import bodyParser from 'body-parser';
-import cors from 'cors'; 
+import cors from 'cors';
 const app = express();
 const port = process.env.PORT || 3000;
+import mongoose from 'mongoose';
+
+mongoose.connect(
+  'mongodb+srv://admin:admin@cluster0.8k8x2n0.mongodb.net/posts'
+);
 
 app.use(cors());
 app.use(bodyParser.json())
+
+
+const Post = mongoose.model("Post",{
+  type: String,
+  syllabus: String,
+  response: String
+});
+
 
 // Define a route
 app.post('/test', async (req, res) => {
 
   const query = req.body.syllabus;
-    try {
+  try {
 
-      const data = await fetchData(query, "test");
-      res.json({data});
-    } catch (error) {
-      console.error("Error fetching data:", error);
-      res.status(500).json("Internal Server Error");
+    const data = await fetchData(query, "test");
+    if(data)
+    {
+      const NewPost = new Post({
+        type:'test',
+        syllabus: query,
+        response: data
+      });
+
+      NewPost.save().then( doc =>
+        {
+          res.json({ data });
+        })
     }
-  });
+    
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    res.status(500).json("Internal Server Error");
+  }
+});
 
-  app.post('/notes', async (req, res) => {
+app.post('/notes', async (req, res) => {
 
-    const query = req.body.syllabus;
-      try {
-        const data = await fetchData(query, "notes");
-        res.json({data});
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        res.status(500).json("Internal Server Error");
-      }
-    });
+  const query = req.body.syllabus;
+  try {
+    const data = await fetchData(query, "notes");
+    if(data)
+    {
+      const NewPost = new Post({
+        type:'notes',
+        syllabus: query,
+        response: data
+      });
+
+      NewPost.save().then(doc =>
+        {
+          res.json({ data });
+        })
+    }
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    res.status(500).json("Internal Server Error");
+  }
+});
 
 
 
