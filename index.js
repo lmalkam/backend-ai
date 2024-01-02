@@ -26,6 +26,7 @@ async function fetchData(prompt, mode) {
     
     ${prompt}` }],
     model: "gpt-3.5-turbo",
+    max_tokens: 1500,
   });
 
   const res = completion.choices[0].message.content;
