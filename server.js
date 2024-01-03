@@ -119,7 +119,7 @@ app.get('/history', async (req, res) => {
   }
 
   try {
-    const posts = await Post.find({ user_id });
+    const posts = await Post.find({ user_id }).sort({ _id: -1 });
     res.json({ posts });
   } catch (error) {
     console.error(error);
@@ -127,12 +127,6 @@ app.get('/history', async (req, res) => {
   }
 });
 
-app.get('/playground', (req, res) => {
-  res.redirect('https://syllabusai-frontend.vercel.app/');
-});
-app.get('/history', (req, res) => {
-  res.redirect('https://syllabusai-frontend.vercel.app/');
-});
 
 
 app.listen(port, () => {
