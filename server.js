@@ -127,6 +127,22 @@ app.get('/history', async (req, res) => {
   }
 });
 
+app.get('/user', async (req, res) => {
+  const { user_id } = req.query;
+
+  try {
+    const user = await User.findOne({ user_id });
+
+    if (user) {
+      res.json({ user });
+    } else {
+      res.status(404).json({ error: 'User not found' });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
 
 
 app.listen(port, () => {
