@@ -4,11 +4,12 @@ import fetchData from './index.js';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import mongoose from 'mongoose';
+import 'dotenv/config'
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-mongoose.connect('mongodb+srv://admin:admin@cluster0.8k8x2n0.mongodb.net/posts');
+mongoose.connect(process.env.MONGO_URL)
 
 app.use(cors());
 app.use(bodyParser.json());
