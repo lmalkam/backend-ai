@@ -1,85 +1,124 @@
 // index.js
-import express from 'express'
+import express from 'express';
 import fetchData from './index.js';
 import bodyParser from 'body-parser';
 import cors from 'cors';
-const app = express();
-const port = process.env.PORT || 3000;
 import mongoose from 'mongoose';
 
-mongoose.connect(
-  'mongodb+srv://admin:admin@cluster0.8k8x2n0.mongodb.net/posts'
-);
+const app = express();
+const port = process.env.PORT || 3000;
+
+mongoose.connect('mongodb+srv://admin:admin@cluster0.8k8x2n0.mongodb.net/posts');
 
 app.use(cors());
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
-
-const Post = mongoose.model("Post",{
-  type: String,
-  syllabus: String,
-  response: String
+const User = mongoose.model("User", {
+  user_id: String,
+  available_tokens: Number
 });
 
+const Post = mongoose.model("Post", {
+  type: String,
+  syllabus: String,
+  response: String,
+  user_id: String
+});
 
 // Define a route
 app.post('/test', async (req, res) => {
+  const { syllabus, user_id } = req.body;
 
-  const query = req.body.syllabus;
   try {
+    let user = await User.findOne({ user_id });
 
-    const data = await fetchData(query, "test");
-    if(data)
-    {
-      const NewPost = new Post({
-        type:'test',
-        syllabus: query,
-        response: data
+    if (!user) {
+      // Create a new user with 29 tokens if not exists
+      user = new User({
+        user_id,
+        available_tokens: 29
       });
-
-      NewPost.save().then( doc =>
-        {
-          res.json({ data });
-        })
+      await user.save();
     }
-    
+
+    if (user.available_tokens > 0) {
+      const data = await fetchData(syllabus, "test");
+
+      if (data) {
+        const NewPost = new Post({
+          type: 'test',
+          syllabus,
+          response: data,
+          user_id
+        });
+
+        user.available_tokens--;
+        await user.save();
+
+        await NewPost.save();
+
+        res.json({ data });
+      }
+    } else {
+      res.status(403).json({ error: 'Not enough tokens' });
+    }
   } catch (error) {
-    console.error("Error fetching data:", error);
-    res.status(500).json("Internal Server Error");
+    console.error("Error processing request:", error);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 
-
 app.post('/notes', async (req, res) => {
+  const { syllabus, user_id } = req.body;
 
-  const query = req.body.syllabus;
   try {
-    const data = await fetchData(query, "notes");
-    if(data)
-    {
-      const NewPost = new Post({
-        type:'notes',
-        syllabus: query,
-        response: data
-      });
+    let user = await User.findOne({ user_id });
 
-      NewPost.save().then(doc =>
-        {
-          res.json({ data });
-        })
+    if (!user) {
+      // Create a new user with 29 tokens if not exists
+      user = new User({
+        user_id,
+        available_tokens: 29
+      });
+      await user.save();
+    }
+
+    if (user.available_tokens > 0) {
+      const data = await fetchData(syllabus, "notes");
+
+      if (data) {
+        const NewPost = new Post({
+          type: 'notes',
+          syllabus,
+          response: data,
+          user_id
+        });
+
+        user.available_tokens--;
+        await user.save();
+
+        await NewPost.save();
+
+        res.json({ data });
+      }
+    } else {
+      res.status(403).json({ error: 'Not enough tokens' });
     }
   } catch (error) {
-    console.error("Error fetching data:", error);
-    res.status(500).json("Internal Server Error");
+    console.error("Error processing request:", error);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 
 app.get('/history', async (req, res) => {
-  try {
-    // Fetch posts from the database for the specified user_id
-    const posts = await Post.find({});
+  const { user_id } = req.query;
 
-    // Send the retrieved posts as a response
+  if (!user_id) {
+    return res.status(400).json({ error: 'Missing user_id in the query parameters' });
+  }
+
+  try {
+    const posts = await Post.find({ user_id });
     res.json({ posts });
   } catch (error) {
     console.error(error);
@@ -88,12 +127,6 @@ app.get('/history', async (req, res) => {
 });
 
 
-
-
-// Start the server
 app.listen(port, () => {
   console.log(`Server is listening at http://localhost:${port}`);
 });
-
-
-
