@@ -126,6 +126,13 @@ app.get('/history', async (req, res) => {
   }
 });
 
+app.get('/playground', (req, res) => {
+  res.redirect('https://syllabusai-frontend.vercel.app/');
+});
+app.get('/history', (req, res) => {
+  res.redirect('https://syllabusai-frontend.vercel.app/');
+});
+
 
 app.listen(port, () => {
   console.log(`Server is listening at http://localhost:${port}`);
