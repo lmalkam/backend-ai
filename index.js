@@ -11,7 +11,7 @@ async function fetchData(prompt, mode) {
     -it should contain 10 questions with answers
     -all the questions should be of descriptive type 
     -questions should have variation in marks 
-    -only use commanmark markdown for response, use #, ##, ### for headings
+    -only use commonmark markdown for response, use #, ##, ### for headings
     -do not provide any instructions
     
     `, 
@@ -19,8 +19,8 @@ async function fetchData(prompt, mode) {
     notes : `For the below given syllabus make short note on every topic.
     -every topic should be covered
     -it should make topic memorable
-    -only use commanmark markdown for response, use #, ##, ### for headings
-    - inlcude few resources links with each topic in format like '[link text](url) or <http://example.com/>'
+    -only use commonmark markdown for response, use #, ##, ### for headings
+    - inlcude few resources links with each topic in format like '[link text](url) or <http://example.com/>'(only use wikipedia links)
     `
     
   }
