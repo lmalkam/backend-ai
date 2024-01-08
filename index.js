@@ -8,18 +8,19 @@ const openai = new OpenAI({
 async function fetchData(prompt, mode) {
   const prompts = {
     test : `For the below given syllabus give me a school like test paper for exam .
-    -it should contain 10 questions
-    -all the questions should be of descriptive type
+    -it should contain 10 questions with answers
+    -all the questions should be of descriptive type 
     -questions should have variation in marks 
-    -respond in html with heading as title and li's as question
-    -do not output anything else
+    -only use commanmark markdown for response, use #, ##, ### for headings
+    -do not provide any instructions
+    
     `, 
 
-    notes : `For the below given syllabus make cheatsheet on every topic.
+    notes : `For the below given syllabus make short note on every topic.
     -every topic should be covered
     -it should make topic memorable
-    -respond in html with body component only  without any styling (do not give anything else)
-    -use br tag to separte content, use heading tag for headings
+    -only use commanmark markdown for response, use #, ##, ### for headings
+    - inlcude few resources links with each topic in format like '[link text](url) or <http://example.com/>'
     `
     
   }
