@@ -18,8 +18,7 @@ async function fetchData(prompt, mode) {
     -every topic should be covered
     -it should make topic memorable
     -only use commonmark markdown for response, use #, ##, ### for headings
-    - inlcude few resources links with each topic in format like '[link text](https://en.wikipedia.org/wiki/Special:Search?search=Search%20Term
-    )(only replace search term with topic name separated by %20)
+    - inlcude few resources links with each topic 
     `,
 
     ans: `Answer the below question as an ideal answer to a question in a test that will get full marks
