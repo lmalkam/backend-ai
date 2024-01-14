@@ -14,9 +14,8 @@ async function fetchData(prompt, mode) {
     
     `, 
 
-    notes : `For the below given syllabus make short note on every topic.
-    -every topic should be covered
-    -it should make topic memorable
+    notes : `For the below given syllabus give me notes on every topic.
+    -every topic should be covered in at least 150  words, could be more depending on the topic
     -only use commonmark markdown for response, use #, ##, ### for headings
     - inlcude few resources links with each topic 
     `,
