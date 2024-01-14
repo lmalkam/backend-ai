@@ -37,7 +37,7 @@ app.post('/test', async (req, res) => {
       // Create a new user with 29 tokens if not exists
       user = new User({
         user_id,
-        available_tokens: 29
+        available_tokens: 199
       });
       await user.save();
     }
