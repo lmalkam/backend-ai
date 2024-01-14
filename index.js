@@ -5,10 +5,10 @@ import 'dotenv/config'
 
 async function fetchData(prompt, mode) {
   const prompts = {
-    test : `For the below given syllabus give me a school like test paper for exam .
-    -it should contain 10 questions with a very short answer key
+    test : `For the below given syllabus give me a test.
+    -it should contain 10 questions with a very short answer key after each question
     -all the questions should be of descriptive type 
-    -questions should have variation in marks 
+    -test should contain questions of 4,5,6,7,8 marks
     -only use commonmark markdown for response, use #, ##, ### for headings
     -do not provide any instructions
     
@@ -22,7 +22,9 @@ async function fetchData(prompt, mode) {
 
     ans: `Answer the below question as an ideal answer to a question in a test that will get full marks
     -only use commonmark markdown for response, use #, ##, ### for headings
-    `
+    `,
+
+    analyse: `Analyse the syllabus given below and provide the list of most important topics along with subtopic that I need to study inorder to ace the exams`
     
 
   }
