@@ -26,7 +26,9 @@ async function fetchData(prompt, mode) {
 
     analyse: `Analyse the syllabus given below and provide the list of most important topics along with subtopic that I need to study inorder to ace the exams`,
 
-    map : `Give a mind map for the given syllabus in a detailed manner for a easy undestanding of the topic`
+    map : `Give a mind map for the given syllabus in a detailed manner for a easy undestanding of the topic`,
+
+    schedule : 'Given the topics for the study session can you create a Hour wise detailed time table to learn the particular topic -only use commonmark markdown for response, use #, ##, ### for headings'
     
 
   }

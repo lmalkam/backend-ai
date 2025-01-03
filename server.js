@@ -271,6 +271,51 @@ app.get('/user', async (req, res) => {
   }
 });
 
+app.post('/schedule', async (req, res) => {
+
+  const { syllabus, user_id } = req.body;
+
+  try {
+    let user = await User.findOne({ user_id });
+
+    if (!user) {
+      // Create a new user with 29 tokens if not exists
+      user = new User({
+        user_id,
+        available_tokens: 29
+      });
+      await user.save();
+    }
+
+    if (user.available_tokens > 0) {
+      const data = await fetchData(syllabus, "schedule");
+
+      if (data) {
+        const NewPost = new Post({
+          type: 'schduele',
+          syllabus,
+          response: data,
+          user_id
+        });
+
+        user.available_tokens--;
+        await user.save();
+
+        await NewPost.save();
+
+        res.json({ data });
+      }
+    } else {
+      res.status(403).json({ error: 'Not enough tokens' });
+    }
+  } catch (error) {
+    console.error("Error processing request:", error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+  
+
+});
+
 
 app.listen(port, () => {
   console.log(`Server is listening at http://localhost:${port}`);
